@@ -14,7 +14,7 @@ app.use(cors())
 const baseUrl = 'https://srtfyjs.herokuapp.com/'
 
 // @mongoose: Connecting To DB
-mongoose.connect(process.env.DB, {
+mongoose.connect('mongodb+srv://tanishghosh:tanishghosh012@cluster0.uqjih.mongodb.net/mern?retryWrites=true&w=majority', {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
