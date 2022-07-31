@@ -2,14 +2,16 @@ const mongoose = require('mongoose')
 const randomString = require('randomstring')
 const express = require('express')
 const app = express()
+const cors = require('cors')
 require('dotenv').config()      
-const PORT = process.env.PORT || 8000
+const port = process.env.PORT || 8000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(cors())
 
 // @BaseUrl
-const baseUrl = 'http://localhost:8000/'
+const baseUrl = 'https://srtfyjs.herokuapp.com/'
 
 // @mongoose: Connecting To DB
 mongoose.connect(process.env.DB, {
@@ -37,6 +39,10 @@ app.get('/:url',  (req, res)=>{
 // @Adding/Creating: For Adding URLs To The DataBase
 app.post('/shorten/:url',  async (req, res)=>{
     const url = req.params.url
+    // res.json({
+    //     "orinalUrl": url,
+    //     "received" : 'Received'
+    // })
     const shorten_url = randomString.generate(7)
     const post = new Data({
         org_url: url, shorten_url: shorten_url
@@ -54,6 +60,10 @@ app.post('/shorten/:url',  async (req, res)=>{
     }
 })
 
-app.listen(PORT, ()=>{
+app.get('/test',(req, res)=>{
+    res.send("Hello World")
+})
+
+app.listen(port, ()=>{
     console.log(`Server Started At PORT ${PORT}`)
 })
